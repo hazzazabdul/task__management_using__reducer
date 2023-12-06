@@ -1,0 +1,48 @@
+.edit__icon,
+.delete__icon,
+.complete__btn,
+.save__btn {
+  cursor: pointer;
+  color: #fff;
+  border: none;
+  padding: 0.55rem;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+button svg {
+  width: 22px;
+  height: 22px;
+}
+
+
+.Todo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #8758ff;
+    color: #fff;
+    padding: 0.75rem 1rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+  }
+
+
+  .task__call__to__action {
+    width: 35%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+  }
+
+
+  .update__input {
+    font-size: 18px;
+    outline: none;
+    background: none;
+    border: 1px solid #fff;
+    padding: 0.5rem 1rem;
+    width: 300px;
+    color: #fff;
+    line-break: anywhere;
+  }
