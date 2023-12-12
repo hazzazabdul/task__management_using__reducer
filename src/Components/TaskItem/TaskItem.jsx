@@ -1,102 +1,60 @@
 /* eslint-disable react/prop-types */
-
 import classes from "./TaskItem.module.css";
+import { useUserContext } from "../../Hook/useUserContext";
+import { RiDeleteBin5Fill } from "react-icons/ri";
+import { FaEdit } from "react-icons/fa";
 import { useState } from "react";
-import { ACTIONS } from "../../assets/utilities/actions";
-import { CiEdit } from "react-icons/ci";
-import { MdFileDownloadDone } from "react-icons/md";
-import { FaSave } from "react-icons/fa";
-import { MdDeleteSweep } from "react-icons/md";
+import { IoSaveSharp } from "react-icons/io5";
 
-//
-const TaskItem = ({ todo, dispatch, edit: { isEdit, setIsEdit } }) => {
-  const [updateText, setUpdateText] = useState(todo.text);
-
-  const handleEdit = () => {
-    setIsEdit(todo.id);
+const TaskItem = ({ user, edit: { isEdit, setIsEdit } }) => {
+  const { dispatch } = useUserContext();
+  const { id, username } = user;
+  const [updated, setUpdated] = useState(username);
+  const handleDelete = (id) => {
+    dispatch({ type: "DELETE__USER", payload: id });
   };
 
-  const handleDeleteTask = () => {
-    dispatch({
-      type: ACTIONS.DELETE__TODO,
-      payload: { id: todo.id },
-    });
+  const handleEditButton = () => {
+    setIsEdit(id);
   };
 
-  const handleCompleteTask = () => {
-    dispatch({
-      type: ACTIONS.COMPLETE__TODO,
-      payload: { id: todo.id },
-    });
-  };
-
-  const handleUpdateSave = () => {
-    dispatch({
-      type: ACTIONS.UPDATE__TODO,
-      payload: { text: updateText, id: todo.id },
-    });
+  const handleSaveButton = (id) => {
+    dispatch({ type: "UPDATE__USER", payload: { id, updated } });
     setIsEdit(null);
   };
 
   return (
-    <div className={classes.Todo}>
-      {isEdit !== todo.id ? (
-        <p
-          style={{
-            color: todo.complete ? "#aaa" :"#fff",
-            textDecoration: todo.complete ? "line-through" : "none",
-            width: "65%",
-            lineBreak: "anywhere",
-            fontSize: "18px",
-          }}
-        >
-          {todo.text}
-        </p>
+    <article className={classes.task__item}>
+      {isEdit !== id ? (
+        <h4>{username}</h4>
       ) : (
         <input
-          className={classes.update__input}
-          placeholder=""
+          value={updated}
+          onChange={(event) => setUpdated(event.target.value)}
           type="text"
-          value={updateText}
-          onChange={(e) => setUpdateText(e.target.value)}
         />
       )}
 
-      <div className={classes.task__call__to__action}>
-        {!todo.complete && isEdit !== todo.id && (
-          <button
-            className={classes.edit__icon}
-            onClick={handleEdit}
-          >
-            <CiEdit />
-          </button>
-        )}
-
-        {isEdit === todo.id ? (
-          <button
-            className={classes.save__btn}
-            onClick={handleUpdateSave}
-          >
-            <FaSave />
-          </button>
+      <div className={classes.cta__buttons}>
+        {isEdit !== id ? (
+          <FaEdit
+            color="#0b87ff"
+            b
+            onClick={handleEditButton}
+          />
         ) : (
-          <button
-            className={classes.complete__btn}
-            onClick={handleCompleteTask}
-          >
-            <MdFileDownloadDone />
-          </button>
+          <IoSaveSharp
+            color="#1c364f"
+            onClick={() => handleSaveButton(id)}
+          />
         )}
 
-        <button
-          className={classes.delete__icon}
-          disabled={isEdit === todo.id}
-          onClick={handleDeleteTask}
-        >
-          <MdDeleteSweep color="red" />
-        </button>
+        <RiDeleteBin5Fill
+          color="red"
+          onClick={() => handleDelete(id)}
+        />
       </div>
-    </div>
+    </article>
   );
 };
 

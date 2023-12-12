@@ -1,20 +1,9 @@
 * {
-    margin: 0;
     padding: 0;
+    margin: 0;
+    box-sizing: border-box;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-
-
-body {
-    background: #8758ff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
-
-h1 {
-    color: #fff;
-    margin-bottom: 0.5rem;
-    font-size: 1.75rem;
-    text-align: center;
+  body {
+    background-color: #0b87ff;
   }

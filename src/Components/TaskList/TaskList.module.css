@@ -1,0 +1,16 @@
+
+
+.task__list {
+  background-color: #ffffff;
+  position: relative;
+  padding: 1.8em 1.25em;
+  margin-top: 3.8em;
+  width: 100%;
+  box-shadow: 0 1.25em 1.8em rgba(1, 24, 48, 0.15);
+  border-radius: 0.6em;
+}
+
+
+.task__list h3 {
+  text-align: center;
+}

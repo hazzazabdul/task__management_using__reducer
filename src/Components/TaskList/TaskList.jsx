@@ -1,27 +1,27 @@
-import { useContext, useEffect, useState } from "react";
+/* eslint-disable react/prop-types */
 import TaskItem from "../TaskItem/TaskItem";
-import TodoContext from "../../assets/utilities/UseTodoContext";
+import classes from "./TaskList.module.css";
+import { useUserContext } from "../../Hook/useUserContext";
+import { useState } from "react";
 
 const TaskList = () => {
+  const { state } = useUserContext();
   const [isEdit, setIsEdit] = useState(null);
-  const { todo, dispatch } = useContext(TodoContext);
-  console.log(todo)
-
-  useEffect(() => {
-    localStorage.setItem("task", JSON.stringify(todo))
-  },[todo])
 
   return (
-    <>
-      {todo.map((todos) => (
+    <section className={classes.task__list}>
+      {
+        state.users.length > 0 ? 
+        state.users.map((user) => (
         <TaskItem
-          key={todo.id}
-          todo={todos}
-          dispatch={dispatch}
+          key={user.id}
+          user={user}
           edit={{ isEdit, setIsEdit }}
         />
-      ))}
-    </>
+      )) :
+          <h3>No Task Added</h3>
+      }
+    </section>
   );
 };
 

@@ -1,15 +1,19 @@
-import AddTaskForm from "./Components/TaskForm/AddTaskForm"
 import TaskList from "./Components/TaskList/TaskList";
-import { TodoContextProvider } from "./assets/utilities/UseTodoContext";
+import AddTaskForm from "./Components/TaskForm/AddTaskForm";
+import { UserContextProvider } from "./Context/UsersContext";
 import classes from "./App.module.css"
 
-export const App = () => {
+
+const App = () => {
+
   return (
-    <div className={classes.TodoWrapper}>
-      <TodoContextProvider>
-        <AddTaskForm/>
-        <TaskList/>
-      </TodoContextProvider>
-    </div>
+    <UserContextProvider>
+      <div className={classes.main__container}>
+        <AddTaskForm />
+        <TaskList />
+      </div>
+    </UserContextProvider>
   );
 };
+
+export default App;

@@ -1,42 +1,40 @@
-// eslint-disable-next-line no-unused-vars
-
 /* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import { useState } from "react";
+import { useUserContext } from "../../Hook/useUserContext";
 import classes from "./AddTaskForm.module.css";
-import { useContext, useState } from "react";
-import { ACTIONS } from "../../assets/utilities/actions";
-import TodoContext from "../../assets/utilities/UseTodoContext";
 
-const AddTask = () => {
-  // eslint-disable-next-line no-unused-vars
-  const { dispatch } = useContext(TodoContext);
-  const [text, setText] = useState("");
+function AddTaskForm() {
+  const [username, setUsername] = useState("");
+  const { dispatch } = useUserContext();
 
-
-
-
-  const handleFormSubmit = (event) => {
+  const handleSubmitForm = (event) => {
     event.preventDefault();
-    dispatch({ type: ACTIONS.ADD__TODO, payload: { text: text } });
-    setText("");
+
+    const newuser = { id: Date.now(), username: username };
+    dispatch({ type: "ADD__USER", payload: newuser });
+    setUsername("");
   };
 
-  // console.log(todo)
   return (
     <>
-    <h1 className={classes.form__heading}>Task Management</h1>
-      <form onSubmit={handleFormSubmit} className={classes.TodoForm}>
-        <input
-        className={classes.todo__input}
-          required
-          type="text"
-          value={text}
-          placeholder="Add Task"
-           onChange={(e) => setText(e.target.value)}
-        />
-        <button disabled = {text ? false : true} className={classes.todo__btn}>Add</button>
-      </form>
+      <h2>Task Management</h2>
+      <div className={classes.new__task}>
+        <form onSubmit={handleSubmitForm}>
+          <input
+            required
+            type="text"
+            placeholder="Your Task"
+            name="username"
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+          />
+          
+        <button type="submit">Add</button>
+        </form>
+      </div>
     </>
   );
-};
+}
 
-export default AddTask;
+export default AddTaskForm;

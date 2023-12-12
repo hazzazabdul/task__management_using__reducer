@@ -1,4 +1,6 @@
-export const task__manager = () => {
-    const data = localStorage.getItem("task")
-    return data ?  JSON.parse(data) : []
+function getTask () {
+    const tasks = localStorage.getItem("tasks")
+    return tasks ? JSON.parse(tasks) : []
 }
+
+export default getTask
